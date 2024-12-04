@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block cuerpo %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card">
+            <div class="card-body">
+                <form action="/editarPedido/" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="number" id="txtcodigo" name="txtcodigo" class="form-control" value="{{ mi_pedido.id_pedido }}" readonly>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="number" id="txtcliente" name="txtcliente" class="form-control" value="{{ mi_pedido.id_cliente }}" required>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="date" id="txtfecha" name="txtfecha" class="form-control" value="{{ fecha_pedido }}" required>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="number" step="0.01" id="txttotal" name="txttotal" class="form-control" value="{{ mi_pedido.total }}" required>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="text" id="txtestado" name="txtestado" class="form-control" value="{{ mi_pedido.estado }}" required>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="text" id="txtmetodo" name="txtmetodo" class="form-control" value="{{ mi_pedido.metodo_pago }}" required>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="text" id="txtdireccion" name="txtdireccion" class="form-control" value="{{ mi_pedido.direccion_envio }}" required>
+                    </div>
+                    <div class="form-group py-2">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

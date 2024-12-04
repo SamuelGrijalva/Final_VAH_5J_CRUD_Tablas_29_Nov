@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+{% block cuerpo %}
+<div class="row">
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+        <h1>Registrar Pago</h1>
+        <div class="card">
+            <div class="card-body">
+                <form action="/registrarPago/" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="number" id="txtcodigo" name="txtcodigo" class="form-control" placeholder="ID de Pago" required>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="number" id="txtpedidos" name="txtpedidos" class="form-control" placeholder="ID de Pedidos" required>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="date" id="datepago" name="datepago" class="form-control" required>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="number" step="0.01" id="txtmonto" name="txtmonto" class="form-control" placeholder="Monto" required>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="text" id="txtmetodo" name="txtmetodo" class="form-control" placeholder="Método de Pago" required>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="text" id="txtestado" name="txtestado" class="form-control" placeholder="Estado del Pago" required>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="text" id="txttransaccion" name="txttransaccion" class="form-control" placeholder="Transacción" required>
+                    </div>
+                    <div class="form-group py-2">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+        <img class="w-50" src="{% static 'img/pagos.jpeg' %}" width="400" height="400" alt="">
+        <h1>Listado de Pagos</h1>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>ID Pago</th>
+                        <th>ID Pedidos</th>
+                        <th>Fecha</th>
+                        <th>Monto</th>
+                        <th>Método</th>
+                        <th>Estado</th>
+                        <th>Transacción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pago in mispagos %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ pago.id_pago }}</td>
+                        <td>{{ pago.id_pedidos }}</td>
+                        <td>{{ pago.fecha_pago }}</td>
+                        <td>{{ pago.monto }}</td>
+                        <td>{{ pago.metodo_pago }}</td>
+                        <td>{{ pago.estado_pago }}</td>
+                        <td>{{ pago.transaccion }}</td>
+                        <td><a href="seleccionarPago/{{ pago.id_pago }}" class="btn btn-info">Editar</a>
+                        <a href="borrarPago/{{ pago.id_pago }}" class="btn btn-danger">Borrar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
